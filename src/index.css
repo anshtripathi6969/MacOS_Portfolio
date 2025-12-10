@@ -1,23 +1,38 @@
-@import url("https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+/* ----------------------------------------------------------
+   VARIABLE FONT IMPORT (REQUIRED FOR GSAP ANIMATION)
+---------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Tailwind */
 @import "tailwindcss";
+
+/* ----------------------------------------------------------
+   GLOBAL STYLES
+---------------------------------------------------------- */
 
 html,
 body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-image: url("/images/wallpaper.png");
+  background-image: url("/images/wallpaper5.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
+/* ----------------------------------------------------------
+   THEME FIX — GEORAMA → INTER VARIABLE FONT
+---------------------------------------------------------- */
 @theme {
-  --font-georama: "Georama", sans-serif;
+  --font-georama: "Inter", sans-serif;
   --font-roboto: "Roboto Mono", monospace;
   --breakpoint-3xl: 1920px;
 }
+
+/* ----------------------------------------------------------
+   UTILITIES
+---------------------------------------------------------- */
 
 @utility flex-center {
   @apply flex items-center justify-center;
@@ -30,6 +45,10 @@ body {
 @utility abs-center {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
+
+/* ----------------------------------------------------------
+   BASE LAYER
+---------------------------------------------------------- */
 
 @layer base {
   main {
@@ -61,23 +80,33 @@ body {
   }
 }
 
+/* ----------------------------------------------------------
+   COMPONENTS
+---------------------------------------------------------- */
+
 @layer components {
   .icon {
     @apply p-1 hover:bg-gray-200 rounded hover:cursor-default;
   }
 
+  /* ---------------------- WELCOME SCREEN ---------------------- */
   #welcome {
-    @apply text-gray-200 flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10;
+    /* ❌ Removed text-gray-200 (this was overriding your custom color) */
+    @apply flex flex-col justify-center items-center absolute top-1/2 left-1/2 
+           -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen 
+           max-sm:w-full max-sm:px-10;
+  }
 
-    .small-screen {
-      @apply sm:hidden m-7 bg-red-300/20 backdrop-blur-lg p-3 rounded-md absolute top-10;
+  /* MESSAGE FOR SMALL SCREENS */
+  #welcome .small-screen {
+    @apply sm:hidden m-7 bg-red-300/20 backdrop-blur-lg p-3 rounded-md absolute top-10;
 
-      p {
-        @apply flex-1 text-[16px] text-center font-roboto text-gray-400;
-      }
+    p {
+      @apply flex-1 text-[16px] text-center font-roboto text-gray-400;
     }
   }
 
+  /* ---------------------- DOCK ---------------------- */
   #dock {
     @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:hidden;
 
@@ -98,6 +127,7 @@ body {
     }
   }
 
+  /* ---------------------- WINDOW CONTROLS ---------------------- */
   #window-controls {
     @apply flex gap-2;
 
@@ -115,9 +145,11 @@ body {
   }
 
   #window-header {
-    @apply flex items-center justify-between px-4 py-3 rounded-t-lg bg-gray-50 border-b border-gray-200 select-none text-sm text-gray-400;
+    @apply flex items-center justify-between px-4 py-3 rounded-t-lg bg-gray-50 
+           border-b border-gray-200 select-none text-sm text-gray-400;
   }
 
+  /* ---------------------- SAFARI WINDOW ---------------------- */
   #safari {
     @apply w-4xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
@@ -162,6 +194,7 @@ body {
     }
   }
 
+  /* ---------------------- TERMINAL ---------------------- */
   #terminal {
     @apply w-xl absolute top-32 left-1/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
@@ -208,6 +241,7 @@ body {
     }
   }
 
+  /* ---------------------- CONTACT WINDOW ---------------------- */
   #contact {
     @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
@@ -236,6 +270,52 @@ body {
     }
   }
 
+  /* ---------------------- FINDER ---------------------- */
+  #finder {
+    @apply absolute w-3xl left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
+
+    .sidebar {
+      @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
+
+      h3 {
+        @apply text-xs font-medium text-gray-400 mb-1;
+      }
+
+      ul {
+        @apply space-y-1;
+
+        .active {
+          @apply bg-blue-100 text-blue-700;
+        }
+
+        .not-active {
+          @apply text-gray-700 hover:bg-gray-200;
+        }
+
+        li {
+          @apply flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
+        }
+      }
+    }
+
+    .content {
+      @apply flex-1 p-8 bg-white max-w-2xl relative;
+
+      li {
+        @apply absolute flex items-center flex-col gap-3;
+
+        img {
+          @apply object-contain object-center size-16 relative group-hover:scale-105;
+        }
+
+        p {
+          @apply text-sm text-center font-medium w-40;
+        }
+      }
+    }
+  }
+
+  /* ---------------------- PHOTO GALLERY ---------------------- */
   #photos {
     @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
@@ -291,104 +371,6 @@ body {
           &:last-child {
             @apply row-start-4 row-span-2 col-start-1 col-span-2;
           }
-        }
-      }
-    }
-  }
-
-  #resume {
-    @apply w-fit h-fit absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
-
-    #window-header {
-      h2 {
-        @apply font-bold text-sm text-center flex-1;
-      }
-    }
-  }
-
-  #finder {
-    @apply absolute w-3xl left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
-
-    .sidebar {
-      @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
-
-      h3 {
-        @apply text-xs font-medium text-gray-400 mb-1;
-      }
-
-      ul {
-        @apply space-y-1;
-
-        .active {
-          @apply bg-blue-100 text-blue-700;
-        }
-
-        .not-active {
-          @apply text-gray-700 hover:bg-gray-200;
-        }
-
-        li {
-          @apply flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
-        }
-      }
-    }
-
-    .content {
-      @apply flex-1 p-8 bg-white max-w-2xl relative;
-
-      li {
-        @apply absolute flex items-center flex-col gap-3;
-
-        img {
-          @apply object-contain object-center size-16 relative group-hover:scale-105;
-        }
-
-        p {
-          @apply text-sm text-center font-medium w-40;
-        }
-      }
-    }
-  }
-
-  #txtfile {
-    @apply w-md absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
-
-    h2 {
-      @apply font-bold text-sm text-center w-full;
-    }
-  }
-
-  #imgfile {
-    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
-
-    #window-header {
-      p {
-        @apply font-bold text-[#5f6266];
-      }
-    }
-
-    .preview {
-      @apply p-2 bg-gray-200 max-h-[70vh];
-
-      img {
-        @apply w-full h-fit object-contain object-center;
-      }
-    }
-  }
-
-  #home {
-    @apply relative z-0 max-sm:hidden;
-
-    ul {
-      li {
-        @apply absolute z-0 select-none flex items-center flex-col;
-
-        img {
-          @apply group-hover:bg-gray-950/10 p-1 rounded-md;
-        }
-
-        p {
-          @apply text-sm text-white text-center px-1 rounded-md group-hover:bg-blue-500 transition-colors max-w-40;
         }
       }
     }
