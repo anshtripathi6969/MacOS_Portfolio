@@ -376,3 +376,34 @@ body {
     }
   }
 }
+
+/* VisionOS Window */
+.vp-window {
+  backdrop-filter: blur(28px) saturate(1.2);
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 25px 45px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.6);
+  position: absolute;
+  overflow: hidden;
+}
+
+/* Ambient glow behind the window */
+.vp-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160%;
+  height: 160%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+  filter: blur(40px);
+  opacity: 0;
+}
