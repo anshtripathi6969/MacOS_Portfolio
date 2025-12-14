@@ -23,22 +23,25 @@ const WindowWrapper = (Component, windowKey) => {
     const { isOpen, zIndex } = windowData;
 
     // --------------- DRAGGABLE FIX ---------------
-    useGSAP(() => {
+    // Attach Draggable to the *actual* header element when it exists.
+    // We listen for `isOpen` changes because the header is only rendered
+    // once the component mounts and the window is opened.
+    useLayoutEffect(() => {
       const wrapper = wrapperRef.current;
-      const header = headerRef.current;
+      if (!wrapper) return;
 
-      if (!wrapper || !header) return;
+      const headerEl = wrapper.querySelector('#window-header');
+      if (!headerEl) return;
 
-      // DRAGGABLE SHOULD BE ATTACHED ONLY TO HEADER!
       const draggable = Draggable.create(wrapper, {
-        trigger: header,                 // ← FIXED
+        trigger: headerEl,
         onPress: () => focusWindow(windowKey),
         onClick: (e) => e.stopPropagation(),
-        cursor: "grab",
+        cursor: 'grab',
       })[0];
 
       return () => draggable.kill();
-    }, []);
+    }, [isOpen]);
 
     // ------------ SHOW / HIDE WITH ANIMATIONS ------------
     useLayoutEffect(() => {
