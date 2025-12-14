@@ -1,20 +1,20 @@
-import WindowControls from '#components/WindowControls';
-import WindowWrapper from '#hoc/WindowWrapper';
-import { Download } from 'lucide-react';
-import React from 'react';
+import React from "react";
+import WindowControls from "#components/WindowControls";
+import WindowWrapper from "#hoc/WindowWrapper";
+import { Download } from "lucide-react";
 
-const PDF_URL = '/files/resume.pdf';
+const PDF_URL = "/files/resume.pdf";
 
 const Resume = () => {
   return (
     <div
       className="resume-window"
       style={{
-        width: '800px',
-        height: '600px',
-        background: '#1e1e1e',
-        display: 'flex',
-        flexDirection: 'column',
+        width: "900px",
+        height: "650px",
+        background: "#1e1e1e",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       {/* Header */}
@@ -27,16 +27,19 @@ const Resume = () => {
         </a>
       </div>
 
-      {/* PDF */}
+      {/* PDF Viewer */}
       <div style={{ flex: 1 }}>
         <iframe
           src={PDF_URL}
           title="Resume PDF"
           width="100%"
           height="100%"
-          style={{ border: 'none' }}
+          style={{ border: "none" }}
         />
       </div>
     </div>
   );
 };
+
+// 🔥 THIS WAS MISSING
+export default WindowWrapper(Resume, "resume");
