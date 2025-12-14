@@ -41,4 +41,9 @@ const Resume = () => {
   );
 };
 
+<<<<<<< HEAD
 export default WindowWrapper(Resume, 'resume');
+=======
+const ResumeWindow = WindowWrapper(Resume, "resume");
+export default ResumeWindow;
+>>>>>>> c54279e559dedead416becba0e0603d6bd16dd54
