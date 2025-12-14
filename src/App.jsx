@@ -8,23 +8,40 @@ import ImageFile from "./windows/ImageFile.jsx";
 import Contact from "./windows/Contact.jsx";
 import Home from "./components/Home.jsx";
 
+// 🆕 BOOT SYSTEM
+import BootScreen from "./boot/BootScreen";
+import useBootStore from "./store/bootStore";
+
+// GSAP
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 
 gsap.registerPlugin(Draggable);
 
 const App = () => {
+  const { stage } = useBootStore();
+
+  // ⛔ Show boot screen until desktop is ready
+  if (stage !== "desktop") {
+    return <BootScreen />;
+  }
+
+  // 🖥️ Desktop UI (your existing app)
   return (
     <main>
       <Navbar />
       <Welcome />
       <Dock />
+
+      {/* Windows */}
       <Terminal />
       <Resume />
       <Finder />
       <TextFile />
       <ImageFile />
       <Contact />
+
+      {/* Desktop icons */}
       <Home />
     </main>
   );
