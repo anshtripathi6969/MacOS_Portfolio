@@ -4,66 +4,60 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
-// ------------------------------
+// ----------------------------------------
 // TYPOGRAPHY WEIGHT CONFIG
-// ------------------------------
+// ----------------------------------------
 const FONT_WEIGHTS = {
   title: { min: 320, max: 900, base: 480 },
   subtitle: { min: 260, max: 520, base: 310 },
 };
 
-// ------------------------------
-// BRIGHT MATTE PALETTE
-// ------------------------------
-const MATTE_COLORS = [
-  "#F3F4F6", // bright silver
-  "#D7DAE0", // light matte
-  "#B4B9C2", // soft steel
-  "#8A90A0", // cool gray
-];
-
+// ----------------------------------------
+// MATTE GRADIENT COLORS (TITLE ONLY)
+// ----------------------------------------
+const MATTE_COLORS = ["#F3F4F6", "#D7DAE0", "#B4B9C2", "#8A90A0"];
 const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// ------------------------------
-// TEXT RENDER WITH M3 ABERRATION
-// ------------------------------
-const renderText = (text, className, baseWeight) =>
+// ----------------------------------------
+// RENDER TEXT (subtitle keeps solid color)
+// ----------------------------------------
+const renderText = (text, className, baseWeight, isSubtitle = false) =>
   [...text].map((char, i) => (
     <span
       key={`${char}-${i}`}
       data-letter
+      data-type={isSubtitle ? "subtitle" : "title"}
       className={className}
       style={{
         display: "inline-block",
         pointerEvents: "none",
         fontVariationSettings: `'wght' ${baseWeight}`,
 
-        // Matte gradient
-        backgroundImage: `linear-gradient(
-          90deg,
-          #F3F4F6,
-          #D7DAE0,
-          #B4B9C2,
-          #8A90A0
-        )`,
-        WebkitBackgroundClip: "text",
-        color: "transparent",
+        // Subtitle = fixed matte black
+        color: isSubtitle ? "#1F1F22" : "transparent",
+        background: isSubtitle
+          ? "none"
+          : "linear-gradient(90deg, #F3F4F6, #D7DAE0, #B4B9C2, #8A90A0)",
+        WebkitBackgroundClip: isSubtitle ? "none" : "text",
 
-        // Apple M-series chromatic aberration
-        filter: `
-          drop-shadow(1px 0 0 rgba(255,60,60,0.10))
-          drop-shadow(-1px 0 0 rgba(60,180,255,0.10))
-          drop-shadow(0 0 6px rgba(0,0,0,0.22))
-        `,
+        textShadow: isSubtitle ? "0 1px 2px rgba(0,0,0,0.25)" : "none",
+
+        filter: isSubtitle
+          ? "none"
+          : `
+            drop-shadow(1px 0 rgba(255,60,60,0.10))
+            drop-shadow(-1px 0 rgba(60,180,255,0.10))
+            drop-shadow(0 0 6px rgba(0,0,0,0.22))
+          `,
       }}
     >
       {char === " " ? "\u00A0" : char}
     </span>
   ));
 
-// ------------------------------
-// PREMIUM MOTION PHYSICS ENGINE
-// ------------------------------
+// ----------------------------------------
+// PHYSICS ENGINE (works on title + subtitle)
+// ----------------------------------------
 const setupPremiumPhysics = (container, config, ambientLightRef) => {
   if (!container) return;
 
@@ -76,7 +70,7 @@ const setupPremiumPhysics = (container, config, ambientLightRef) => {
   let lastX = 0;
   let velocityX = 0;
 
-  // Ambient light base glow
+  // Ambient glow
   gsap.to(light, {
     opacity: 0.32,
     scale: 1.18,
@@ -86,15 +80,10 @@ const setupPremiumPhysics = (container, config, ambientLightRef) => {
     yoyo: true,
   });
 
-  // Smooth intro reveal
+  // Intro reveal animation
   gsap.fromTo(
     letters,
-    {
-      opacity: 0,
-      y: 26,
-      scale: 0.96,
-      filter: "blur(10px)",
-    },
+    { opacity: 0, y: 26, scale: 0.96, filter: "blur(12px)" },
     {
       opacity: 1,
       y: 0,
@@ -102,82 +91,77 @@ const setupPremiumPhysics = (container, config, ambientLightRef) => {
       filter: "blur(0px)",
       duration: 1.2,
       ease: "power3.out",
-      stagger: 0.022,
+      stagger: 0.02,
     }
   );
 
-  // Physics-based hover
+  // Hover physics
   const handleMouseMove = (e) => {
     const rect = container.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
 
-    // Calculate cursor velocity for inertial motion
     velocityX = mouseX - lastX;
     lastX = mouseX;
 
-    // Move ambient matte glow with physics
     gsap.to(light, {
       x: (mouseX - rect.width / 2) * 0.08,
-      opacity: 0.37 + Math.abs(velocityX) * 0.002,
-      scale: 1.22 + Math.abs(velocityX) * 0.002,
-      duration: 0.5,
-      ease: "power3.out",
+      opacity: 0.37,
+      scale: 1.22,
+      duration: 0.4,
     });
 
     letters.forEach((letter, index) => {
+      const type = letter.dataset.type;
       const box = letter.getBoundingClientRect();
-      const centerX = box.left - rect.left + box.width / 2;
 
+      const centerX = box.left - rect.left + box.width / 2;
       const distance = Math.abs(mouseX - centerX);
       const intensity = Math.exp(-(distance ** 2) / 3500);
 
-      // Spring physics for weight morph
+      // Weight spring physics
       const targetWeight = min + (max - min) * intensity;
       const state = states[index];
 
-      state.velocity += (targetWeight - state.weight) * 0.12; // spring force
-      state.velocity *= 0.72; // damping
+      state.velocity += (targetWeight - state.weight) * 0.12;
+      state.velocity *= 0.72;
       state.weight += state.velocity;
 
       gsap.set(letter, {
         fontVariationSettings: `'wght' ${state.weight}`,
       });
 
-      // Lift + subtle tilt based on velocity
+      // Motion effects
       gsap.to(letter, {
-        y: -12 * intensity,
-        scale: 1 + 0.22 * intensity,
+        y: -10 * intensity,
+        scale: 1 + 0.18 * intensity,
         rotate: velocityX * 0.05 * intensity,
         duration: 0.35,
         ease: "power3.out",
       });
 
-      // Subtle matte gradient shift
-      gsap.to(letter, {
-        backgroundImage: `linear-gradient(
-          90deg,
-          ${rand(MATTE_COLORS)},
-          ${rand(MATTE_COLORS)}
-        )`,
-        duration: 0.45,
-        ease: "sine.out",
-      });
+      // Title-only effects
+      if (type === "title") {
+        gsap.to(letter, {
+          backgroundImage: `linear-gradient(90deg, ${rand(
+            MATTE_COLORS
+          )}, ${rand(MATTE_COLORS)})`,
+          duration: 0.45,
+        });
 
-      // Animate chromatic aberration dynamically
-      gsap.to(letter, {
-        filter: `
-          drop-shadow(${1 + intensity}px 0 rgba(255,60,60,0.12))
-          drop-shadow(${-1 - intensity}px 0 rgba(60,180,255,0.12))
-          drop-shadow(0 0 6px rgba(0,0,0,0.25))
-        `,
-        duration: 0.3,
-      });
+        gsap.to(letter, {
+          filter: `
+            drop-shadow(${1 + intensity}px 0 rgba(255,60,60,0.12))
+            drop-shadow(${-1 - intensity}px 0 rgba(60,180,255,0.12))
+          `,
+          duration: 0.3,
+        });
+      }
     });
   };
 
-  // Reset on leave
+  // Reset on mouse leave
   const handleMouseLeave = () => {
-    letters.forEach((letter, index) => {
+    letters.forEach((letter) => {
       gsap.to(letter, {
         y: 0,
         scale: 1,
@@ -185,12 +169,12 @@ const setupPremiumPhysics = (container, config, ambientLightRef) => {
         duration: 0.45,
         ease: "power3.out",
       });
+    });
 
-      gsap.to(light, {
-        opacity: 0.28,
-        scale: 1.18,
-        duration: 0.6,
-      });
+    gsap.to(light, {
+      opacity: 0.28,
+      scale: 1.15,
+      duration: 0.6,
     });
   };
 
@@ -203,6 +187,9 @@ const setupPremiumPhysics = (container, config, ambientLightRef) => {
   };
 };
 
+// ----------------------------------------
+// COMPONENT
+// ----------------------------------------
 const Welcome = () => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
@@ -228,7 +215,7 @@ const Welcome = () => {
 
   return (
     <section id="welcome" style={{ position: "relative" }}>
-      {/* Ambient Matte Glow */}
+      {/* Ambient Glow */}
       <div
         ref={ambientLightRef}
         style={{
@@ -251,26 +238,19 @@ const Welcome = () => {
         {renderText(
           "Hey , I'm Ansh! Welcome to my",
           "text-2xl sm:text-3xl font-georama",
-          FONT_WEIGHTS.subtitle.base
+          FONT_WEIGHTS.subtitle.base,
+          true
         )}
       </p>
 
       {/* Title */}
-      <h1
-        ref={titleRef}
-        className="mt-6"
-        style={{ display: "inline-block" }}
-      >
+      <h1 ref={titleRef} className="mt-6" style={{ display: "inline-block" }}>
         {renderText(
           "portfolio",
           "text-6xl sm:text-8xl lg:text-9xl italic font-georama",
           FONT_WEIGHTS.title.base
         )}
       </h1>
-
-      <div className="small-screen">
-        <p>This portfolio is designed for desktop/tablet screens only.</p>
-      </div>
     </section>
   );
 };

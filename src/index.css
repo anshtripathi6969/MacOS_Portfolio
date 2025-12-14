@@ -15,7 +15,7 @@ body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-image: url("/images/wallpaper5.jpg");
+  background-image: url("/images/wallpaper7.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -29,6 +29,13 @@ body {
   --font-roboto: "Roboto Mono", monospace;
   --breakpoint-3xl: 1920px;
 }
+/* DESKTOP FOLDER LABELS */
+#home ul li p {
+  @apply text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)];
+}
+
+
+
 
 /* ----------------------------------------------------------
    UTILITIES
@@ -96,6 +103,8 @@ body {
            -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen 
            max-sm:w-full max-sm:px-10;
   }
+
+  /* Background video rules removed — reverting to wallpaper image fallback */
 
   /* MESSAGE FOR SMALL SCREENS */
   #welcome .small-screen {
@@ -377,6 +386,56 @@ body {
   }
 }
 
+/* ---------------------- TEXT FILE WINDOW ---------------------- */
+#txtfile {
+  @apply max-w-2xl absolute top-40 right-20 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+  h2 {
+    @apply font-bold text-sm text-center w-full;
+  }
+
+  .textfile-content {
+    @apply p-6 max-h-96 overflow-y-auto;
+
+    .image-container {
+      @apply mb-6 flex justify-center;
+
+      img {
+        @apply max-w-full h-auto rounded-lg shadow-md;
+      }
+    }
+
+    .subtitle {
+      @apply text-lg font-semibold text-gray-800 mb-4;
+    }
+
+    .description {
+      @apply space-y-3;
+
+      p {
+        @apply text-sm text-gray-700 leading-relaxed;
+      }
+    }
+  }
+}
+
+/* ---------------------- IMAGE FILE WINDOW ---------------------- */
+#imgfile {
+  @apply max-w-3xl absolute top-32 right-40 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+  h2 {
+    @apply font-bold text-sm text-center w-full;
+  }
+
+  .imagefile-content {
+    @apply p-4 flex items-center justify-center;
+
+    img {
+      @apply max-w-full h-auto rounded-lg;
+    }
+  }
+}
+
 /* VisionOS Window */
 .vp-window {
   backdrop-filter: blur(28px) saturate(1.2);
@@ -407,3 +466,9 @@ body {
   filter: blur(40px);
   opacity: 0;
 }
+
+.folder {
+  @apply cursor-pointer select-none;
+  position: absolute;
+}
+
