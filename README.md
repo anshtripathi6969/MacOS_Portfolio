@@ -1,16 +1,216 @@
-# React + Vite
+<!-- ================= HERO ================= -->
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🍎 macOS-Inspired Portfolio  
+### _A fully interactive macOS desktop inside the browser_
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18-blue?logo=react" />
+  <img src="https://img.shields.io/badge/Vite-fast-purple?logo=vite" />
+  <img src="https://img.shields.io/badge/GSAP-animations-green?logo=greensock" />
+  <img src="https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel" />
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p align="center">
+  <b>Not a website. A desktop experience.</b>
+</p>
 
-## React Compiler
+🚀 **Live Demo:**  
+👉 https://mac-os-portfolio1.vercel.app  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+</div>
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🖥️ What Is This?
+
+This project is a **pixel-polished macOS-style portfolio** built with **React + Vite**, designed to feel like a **real operating system**, not a static website.
+
+Instead of scrolling pages, users:
+- Boot into the system
+- Interact with windows
+- Open Finder
+- View a PDF resume
+- Use a terminal
+- Navigate via a Dock
+
+> Think macOS Ventura — but in your browser.
+
+---
+
+## ⚡ Key Highlights
+
+- 🧠 **Boot Screen System**
+- 🪟 **Draggable macOS-style windows**
+- 📄 **Native PDF Resume Viewer**
+- 🎨 **Live wallpaper**
+- 🧲 **Dock with animations**
+- 🎯 **Window focus & z-index control**
+- 🚀 **Production-ready & deployed**
+
+---
+
+## 🧠 Boot Sequence
+
+A realistic macOS-inspired boot flow before the desktop unlocks.
+
+<div align="center">
+
+<!-- BOOT GIF -->
+<img src="https://your-gif-url/boot-screen.gif" width="700" />
+
+</div>
+
+**Features**
+- Auto-typing terminal logs
+- Controlled boot stages
+- Zustand-powered global state
+- Desktop only renders after boot completion
+
+---
+
+## 🪟 Window System
+
+Every app runs inside a **draggable macOS-style window**.
+
+<div align="center">
+
+<!-- WINDOW DRAG GIF -->
+<img src="https://your-gif-url/window-drag.gif" width="700" />
+
+</div>
+
+**Includes**
+- Close / minimize / maximize buttons
+- GSAP-powered drag physics
+- Focus handling (active window on click)
+- Reusable `WindowWrapper` HOC
+
+---
+
+## 📄 Resume Viewer (PDF)
+
+Native, lightweight PDF preview — no heavy libraries.
+
+<div align="center">
+
+<!-- PDF VIEWER GIF -->
+<img src="https://your-gif-url/pdf-viewer.gif" width="600" />
+
+</div>
+
+**Why iframe instead of libraries?**
+- Zero runtime errors
+- Faster load
+- Perfect compatibility on Vercel
+- Clean & reliable
+
+---
+
+## 🧭 Finder & Desktop
+
+macOS-style Finder and desktop icons.
+
+<div align="center">
+
+<!-- FINDER GIF -->
+<img src="https://your-gif-url/finder.gif" width="700" />
+
+</div>
+
+---
+
+## 🎨 Live Wallpaper
+
+Subtle motion background inspired by macOS Ventura.
+
+<div align="center">
+
+<!-- WALLPAPER GIF -->
+<img src="https://your-gif-url/wallpaper.gif" width="800" />
+
+</div>
+
+---
+
+## 🧱 Tech Stack
+
+| Tech | Purpose |
+|----|----|
+| **React** | UI & component logic |
+| **Vite** | Lightning-fast bundler |
+| **GSAP** | Animations & dragging |
+| **Zustand** | Boot & app state |
+| **Lucide Icons** | Clean iconography |
+| **CSS / Flexbox** | Layout |
+| **Vercel** | Deployment |
+
+---
+
+## 📁 Project Structure
+
+src/
+├── boot/ # Boot system
+├── components/ # Navbar, Dock, Welcome
+├── windows/ # Terminal, Finder, Resume
+├── hoc/ # WindowWrapper
+├── store/ # Zustand state
+├── constants/
+└── App.jsx
+
+yaml
+Copy code
+
+---
+
+## 🚀 Run Locally
+
+```bash
+git clone https://github.com/AnshTripathi6969/MacOS_Portfolio.git
+cd MacOS_Portfolio
+npm install
+npm run dev
+🌍 Deployment
+Built with Vite
+
+Deployed on Vercel
+
+PDFs served via /public/files
+
+Zero SSR / zero config
+
+🧠 Engineering Challenges Solved
+❌ PDF rendering failures → solved with native iframe
+
+🪟 Window focus & layering logic
+
+🧲 Smooth drag without layout breaking
+
+🧠 Boot state synchronization
+
+🚀 Vercel build edge cases
+
+🔮 Future Enhancements
+🔍 Spotlight search
+
+🧲 Window snapping
+
+🖱 Right-click context menu
+
+🔊 System sounds
+
+🕒 Real-time menu bar clock
+
+📱 Mobile fallback UI
+
+👨‍💻 Author
+Ansh Tripathi
+B.Tech CSE (Cloud Computing)
+Frontend • Systems UI • Creative Engineering
+
+⭐ Like this project?
+Star ⭐ the repo
+
+Fork 🍴 it
+
+Get inspired 💡
