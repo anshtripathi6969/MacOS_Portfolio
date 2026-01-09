@@ -48,7 +48,7 @@ const dockApps = [
   },
   {
     id: "terminal",
-    name: "Skills",
+    name: "Terminal",
     icon: "terminal.png",
     canOpen: true,
   },
