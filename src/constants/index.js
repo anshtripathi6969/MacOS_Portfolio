@@ -53,6 +53,12 @@ const dockApps = [
     canOpen: true,
   },
   {
+    id: "aiChat",
+    name: "AI Chat",
+    icon: "ai-chat.png",
+    canOpen: true,
+  },
+  {
     id: "trash",
     name: "Archive",
     icon: "trash.png",
@@ -300,24 +306,24 @@ const ABOUT_LOCATION = {
   kind: "folder",
   children: [
     {
-  id: 1,
-  name: "LinkedIn Profile",
-  icon: "/images/link.png",   // use your LinkedIn icon here
-  kind: "file",
-  fileType: "url",
-  position: "top-10 left-5",
-  href: "https://www.linkedin.com/in/anshtripathi20/"   // your LinkedIn link
-},
+      id: 1,
+      name: "LinkedIn Profile",
+      icon: "/images/link.png",   // use your LinkedIn icon here
+      kind: "file",
+      fileType: "url",
+      position: "top-10 left-5",
+      href: "https://www.linkedin.com/in/anshtripathi20/"   // your LinkedIn link
+    },
 
     {
-  id: 2,
-  name: "GitHub Profile",
-  icon: "/images/github.png",   // optional: change to any icon you want
-  kind: "file",
-  fileType: "url",
-  position: "top-20 right-30",
-  href: "https://github.com/anshtripathi6969"   // your GitHub link
-},
+      id: 2,
+      name: "GitHub Profile",
+      icon: "/images/github.png",   // optional: change to any icon you want
+      kind: "file",
+      fileType: "url",
+      position: "top-20 right-30",
+      href: "https://github.com/anshtripathi6969"   // your GitHub link
+    },
 
     {
       id: 4,
@@ -329,11 +335,11 @@ const ABOUT_LOCATION = {
       subtitle: "Meet the Developer Behind the Code",
       image: "/images/myself2.jpeg",
       description: [
-  "Hello, I’m Ansh — a dedicated developer with a strong focus on building high-quality, modern web applications and AI-driven solutions.",
-  "My expertise spans React, Next.js, TypeScript, and cloud technologies, with hands-on experience in developing scalable SaaS platforms and intelligent ML tools.",
-  "I prioritize clean architecture, seamless user experiences, and efficient, maintainable code in every project I work on.",
-  "Beyond development, I’m committed to continuous learning, exploring emerging technologies, and refining my craft to deliver impactful, performance-oriented digital products."
-],
+        "Hello, I’m Ansh — a dedicated developer with a strong focus on building high-quality, modern web applications and AI-driven solutions.",
+        "My expertise spans React, Next.js, TypeScript, and cloud technologies, with hands-on experience in developing scalable SaaS platforms and intelligent ML tools.",
+        "I prioritize clean architecture, seamless user experiences, and efficient, maintainable code in every project I work on.",
+        "Beyond development, I’m committed to continuous learning, exploring emerging technologies, and refining my craft to deliver impactful, performance-oriented digital products."
+      ],
     },
   ],
 };
@@ -405,6 +411,7 @@ const WINDOW_CONFIG = {
   safari: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   photos: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   terminal: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+  aiChat: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   txtfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   imgfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 };

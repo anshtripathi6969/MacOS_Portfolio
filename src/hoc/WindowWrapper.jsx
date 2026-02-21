@@ -51,13 +51,19 @@ const WindowWrapper = (Component, windowKey) => {
       if (isOpen) {
         el.style.display = "block";
 
+        // 🎯 CENTER WINDOW ON OPEN
+        const rect = el.getBoundingClientRect();
+        gsap.set(el, {
+          x: (window.innerWidth - rect.width) / 2,
+          y: (window.innerHeight - rect.height) / 2 - 220, // 🍎 Positioned much higher for a "Spotlight" feel
+        });
+
         gsap.fromTo(
           el,
-          { opacity: 0, scale: 0.85, y: 30 },
+          { opacity: 0, scale: 0.85 },
           {
             opacity: 1,
             scale: 1,
-            y: 0,
             duration: 0.25,
             ease: "power3.out",
           }
@@ -83,6 +89,8 @@ const WindowWrapper = (Component, windowKey) => {
           zIndex,
           display: "none",
           position: "absolute",
+          top: 0,
+          left: 0,
         }}
         onMouseDown={() => focusWindow(windowKey)}
       >

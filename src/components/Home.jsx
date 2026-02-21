@@ -9,18 +9,18 @@ import useLocationStore from "#store/location";
 const projects = locations.work?.children ?? [];
 
 const Home = () => {
-    const { setActiveLocation } = useLocationStore();
+  const { setActiveLocation } = useLocationStore();
 
-    const { openWindow } = useWindowStore();
+  const { openWindow } = useWindowStore();
 
-    const handleOpenProjectFinder = (project) => {
-        setActiveLocation(project);
-        openWindow('finder');
-    }
+  const handleOpenProjectFinder = (project) => {
+    setActiveLocation(project);
+    openWindow('finder');
+  }
 
-    useGSAP(() => {
-        Draggable.create(".folder");
-    }, []);
+  useGSAP(() => {
+    Draggable.create(".folder");
+  }, []);
 
   return (
     <section id="home">

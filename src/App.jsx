@@ -7,6 +7,7 @@ import ImageFile from "./windows/ImageFile.jsx";
 import Contact from "./windows/Contact.jsx";
 import Home from "./components/Home.jsx";
 import Resume from "./windows/Resume.jsx";
+import AIChat from "./windows/AIChat.jsx";
 
 // 🆕 BOOT SYSTEM
 import BootScreen from "./boot/BootScreen";
@@ -35,6 +36,7 @@ const App = () => {
       <Terminal />
       <Finder />
       <Resume />
+      <AIChat />
       <TextFile />
       <ImageFile />
       <Contact />

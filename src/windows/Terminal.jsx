@@ -149,8 +149,6 @@ const Terminal = () => {
           fontFamily: "Roboto Mono, monospace",
           fontSize: "14px",
           lineHeight: "1.6",
-          minHeight: "520px",        // 🔥 BIGGER
-          maxHeight: "70vh",
           overflowY: "auto",
           background: "#000",
           color: "#e5e5e5",
