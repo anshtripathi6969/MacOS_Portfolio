@@ -55,7 +55,7 @@ const WindowWrapper = (Component, windowKey) => {
         const rect = el.getBoundingClientRect();
         gsap.set(el, {
           x: (window.innerWidth - rect.width) / 2,
-          y: (window.innerHeight - rect.height) / 2 - 220, // 🍎 Positioned much higher for a "Spotlight" feel
+          y: (window.innerHeight - rect.height) / 2 - 120, // 🍎 Positioned slightly lower for a better visual balance
         });
 
         gsap.fromTo(
