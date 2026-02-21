@@ -9,19 +9,15 @@ load_dotenv()
 
 # Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY")
-if not api_key:
-    raise ValueError("GEMINI_API_KEY not found in .env")
-
-genai.configure(api_key=api_key)
-# Explicitly use the full model name
-model = genai.GenerativeModel('models/gemini-1.5-flash')
+if api_key:
+    genai.configure(api_key=api_key)
 
 app = FastAPI()
 
 # Enable CORS for the Vite frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust this to your frontend URL in production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -31,7 +27,7 @@ class ChatRequest(BaseModel):
     message: str
     history: list = []
 
-# Portfolio Data (Simplified extraction from constants/index.js)
+# Portfolio Data
 PORTFOLIO_CONTEXT = """
 You are an AI assistant for Ansh Tripathi's portfolio. 
 Ansh is a dedicated developer focusing on build high-quality, modern web applications and AI-driven solutions.
@@ -60,25 +56,22 @@ Respond helpfully to user questions about Ansh's work and experience based on th
 If asked about something not in this context, politely say you only have information about Ansh's portfolio.
 """
 
-@app.post("/chat")
+@app.post("/api/chat")
 async def chat(request: ChatRequest):
     try:
-        print(f"--- Chat Request ---")
-        print(f"Message: {request.message}")
-        
+        if not api_key:
+            return {"response": "API Key is missing. Please set GEMINI_API_KEY in Vercel settings."}
+
         # Discover models
         available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
-        print(f"Available models: {available_models}")
 
         # Construct message with context
         prompt = f"{PORTFOLIO_CONTEXT}\n\nUser: {request.message}\nAI:"
         
         # Use first available model if gemini-1.5-flash fails
         target_model = 'gemini-1.5-flash'
-        if f'models/{target_model}' not in available_models:
-             # Fallback to first available if main target not found
+        if f'models/{target_model}' not in available_models and available_models:
              target_model = available_models[0].replace('models/', '')
-             print(f"Fallback to model: {target_model}")
 
         gen_model = genai.GenerativeModel(target_model)
         response = gen_model.generate_content(prompt)
@@ -88,14 +81,9 @@ async def chat(request: ChatRequest):
 
         return {"response": response.text}
     except Exception as e:
-        print(f"FULL ERROR: {e}")
         error_msg = str(e)
         raise HTTPException(status_code=500, detail=error_msg)
 
-@app.get("/")
+@app.get("/api")
 async def root():
-    return {"message": "AI Chat Backend is running"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    return {"message": "AI Chat Serverless Backend is running"}
