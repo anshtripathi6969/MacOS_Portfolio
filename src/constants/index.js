@@ -59,12 +59,6 @@ const dockApps = [
     canOpen: true,
   },
   {
-    id: "wallpaper",
-    name: "Change Wallpaper",
-    icon: "wallpaper.png",
-    canOpen: true,
-  },
-  {
     id: "trash",
     name: "Archive",
     icon: "trash.png",
