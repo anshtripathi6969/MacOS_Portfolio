@@ -53,7 +53,7 @@ const AIChat = () => {
         <div
             className="chat-window bg-[#1e1e1e] flex flex-col"
             style={{
-                width: "450px",
+                width: "520px",
                 height: "600px",
                 borderRadius: "12px",
                 overflow: "hidden",
@@ -68,14 +68,14 @@ const AIChat = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4 custom-scrollbar">
                 {messages.map((msg, i) => (
                     <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                        <div className={`flex max-w-[80%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                        <div className={`flex max-w-[85%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.role === "user" ? "bg-blue-600 ml-2" : "bg-purple-600 mr-2"}`}>
                                 {msg.role === "user" ? <User size={16} className="text-white" /> : <Bot size={16} className="text-white" />}
                             </div>
-                            <div className={`p-3 rounded-2xl text-sm ${msg.role === "user" ? "bg-blue-500 text-white rounded-tr-none" : "bg-[#333] text-gray-200 rounded-tl-none"}`}>
+                            <div className={`p-3 rounded-2xl text-sm break-words overflow-hidden ${msg.role === "user" ? "bg-blue-500 text-white rounded-tr-none" : "bg-[#333] text-gray-200 rounded-tl-none"}`}>
                                 {msg.content}
                             </div>
                         </div>
