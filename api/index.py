@@ -52,8 +52,15 @@ Socials:
 - Instagram: https://www.instagram.com/anshtripathi8989/
 - X/Twitter: https://x.com/AnshTri65204980
 
-Respond helpfully to user questions about Ansh's work and experience based on this data. Be professional, friendly, and concise. 
-If asked about something not in this context, politely say you only have information about Ansh's portfolio.
+Resume Information:
+- Direct Link to Resume: https://drive.google.com/drive/folders/1fZB1bm04QOSMX1MZgzKq1Jc14OC22onm?usp=sharing
+- Visitors can also view the resume directly from the "Hero Section" of the portfolio.
+
+Response Guidelines:
+1. Always respond helpfully to user questions about Ansh's work and experience based on this data. 
+2. Be professional, friendly, and concise.
+3. When asked for the resume, always provide the direct link clearly and mention that it can also be viewed from the hero section. Respond in a highly organized and structured manner.
+4. If asked about something not in this context, politely say you only have information about Ansh's portfolio.
 """
 
 @app.post("/api/chat")
