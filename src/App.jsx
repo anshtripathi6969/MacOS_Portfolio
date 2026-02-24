@@ -1,5 +1,5 @@
 import React from "react";
-import { Dock, Navbar, Welcome } from "./components";
+import { Dock, Navbar, Welcome, DesktopBackground } from "./components";
 import Terminal from "./windows/Terminal.jsx";
 import Finder from "./windows/Finder.jsx";
 import TextFile from "./windows/TextFile.jsx";
@@ -28,6 +28,7 @@ const App = () => {
 
   return (
     <main>
+      <DesktopBackground />
       <Navbar />
       <Welcome />
       <Dock />

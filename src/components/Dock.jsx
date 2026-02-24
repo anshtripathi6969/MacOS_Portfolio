@@ -4,9 +4,11 @@ import React, { useRef } from 'react';
 import { Tooltip } from 'react-tooltip';
 import { gsap } from 'gsap';
 import useWindowStore from '#store/window.js';
+import useWallpaperStore from '#store/wallpaperStore.js';
 
 const Dock = () => {
     const { openWindow, closeWindow, focusWindow, windows } = useWindowStore();
+    const { nextWallpaper } = useWallpaperStore();
     const dockRef = useRef(null);
 
     useGSAP(() => {
@@ -59,6 +61,11 @@ const Dock = () => {
 
     const toggleApp = (app) => {
         if (!app.canOpen) return;
+
+        if (app.id === 'wallpaper') {
+            nextWallpaper();
+            return;
+        }
 
         const window = windows[app.id];
 
